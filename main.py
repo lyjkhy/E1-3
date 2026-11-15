@@ -39,6 +39,42 @@ def mac(input_data, filter_data):
     return total
 
 
+# MAC 연산 시간 측정 함수
+def measure_time(input_data, filter_data):
+    total_time = 0
+
+    # MAC 연산을 10번 반복
+    for i in range(10):
+        start = time.perf_counter()
+        mac(input_data, filter_data)
+        end = time.perf_counter()
+
+        total_time += end - start
+
+    # 1회당 평균 실행 시간(ms)
+    average_ms = total_time / 10 * 1000
+
+    return average_ms
+
+# 배열 크기별 성능 분석
+def performance_analysis():
+    print("\n=== 크기별 성능 분석 ===")
+    print("크기 | 평균 시간(ms) | 연산 횟수")
+    print("--------------------------------")
+
+    for size in [3, 5, 13, 25]:
+        # 해당 크기의 배열 만들기
+        input_data = [[1] * size for _ in range(size)]
+        filter_data = [[1] * size for _ in range(size)]
+
+        # 평균 실행 시간 측정
+        average_ms = measure_time(input_data, filter_data)
+
+        # MAC 곱셈 횟수
+        operations = size * size
+
+        print(f"{size}x{size} | {average_ms:.6f} | {operations}")
+
 # 사용자 직접 입력 모드
 def user_mode():
     print("\n=== 직접 입력 모드 ===")
@@ -152,4 +188,5 @@ print("실패:", fail_count)
 print("실패한 테스트:", fail_cases)
 
 user_mode()
+performance_analysis()
 
