@@ -1,5 +1,6 @@
 
 import json
+import math
 import time
 
 # 3x3 숫자 배열을 입력받는 함수
@@ -19,6 +20,9 @@ def input_matrix(name):
             if len(numbers) != 3:
                 print("입력 오류: 숫자 3개를 입력하세요.")
                 continue
+            if not all(math.isfinite(x) for x in numbers):
+                print("입력 오류: 유한한 숫자만 입력하세요.")
+                continue 
 
             matrix.append(numbers)
 
