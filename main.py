@@ -99,6 +99,9 @@ def user_mode():
     print("A 점수:", score_a)
     print("B 점수:", score_b)
     print("판정:", result)
+    time_a = measure_time(pattern, filter_a)
+    time_b = measure_time(pattern, filter_b)
+    print(f"평균 계산 시간: {(time_a + time_b) / 2:.6f} ms")
 
 
 print("=== Mini NPU Simulator ===")
