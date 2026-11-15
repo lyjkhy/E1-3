@@ -3,17 +3,30 @@ import json
 import time
 
 # 3x3 숫자 배열을 입력받는 함수
+
+# 3x3 숫자 배열을 입력받는 함수
 def input_matrix(name):
     print(f"\n{name} 입력 (숫자 3개씩, 총 3줄)")
 
     matrix = []
 
-    for i in range(3):
-        row = input(f"{i + 1}행: ")
-        numbers = [float(x) for x in row.split()]
-        matrix.append(numbers)
+    while len(matrix) < 3:
+        row = input(f"{len(matrix) + 1}행: ")
+
+        try:
+            numbers = [float(x) for x in row.split()]
+
+            if len(numbers) != 3:
+                print("입력 오류: 숫자 3개를 입력하세요.")
+                continue
+
+            matrix.append(numbers)
+
+        except ValueError:
+            print("입력 오류: 숫자만 입력하세요.")
 
     return matrix
+
 
 # MAC 연산 함수
 def mac(input_data, filter_data):
@@ -139,3 +152,4 @@ print("실패:", fail_count)
 print("실패한 테스트:", fail_cases)
 
 user_mode()
+
