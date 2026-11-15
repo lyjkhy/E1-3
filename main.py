@@ -2,6 +2,18 @@
 import json
 import time
 
+# 3x3 숫자 배열을 입력받는 함수
+def input_matrix(name):
+    print(f"\n{name} 입력 (숫자 3개씩, 총 3줄)")
+
+    matrix = []
+
+    for i in range(3):
+        row = input(f"{i + 1}행: ")
+        numbers = [float(x) for x in row.split()]
+        matrix.append(numbers)
+
+    return matrix
 
 # MAC 연산 함수
 def mac(input_data, filter_data):
@@ -12,6 +24,32 @@ def mac(input_data, filter_data):
             total += input_data[i][j] * filter_data[i][j]
 
     return total
+
+
+# 사용자 직접 입력 모드
+def user_mode():
+    print("\n=== 직접 입력 모드 ===")
+
+    filter_a = input_matrix("필터 A")
+    filter_b = input_matrix("필터 B")
+    pattern = input_matrix("입력 패턴")
+
+    # MAC 점수 계산
+    score_a = mac(pattern, filter_a)
+    score_b = mac(pattern, filter_b)
+
+    # 점수 비교
+    if abs(score_a - score_b) < 1e-9:
+        result = "판정 불가"
+    elif score_a > score_b:
+        result = "A"
+    else:
+        result = "B"
+
+    print("\n=== 계산 결과 ===")
+    print("A 점수:", score_a)
+    print("B 점수:", score_b)
+    print("판정:", result)
 
 
 print("=== Mini NPU Simulator ===")
@@ -100,3 +138,4 @@ print("성공:", pass_count)
 print("실패:", fail_count)
 print("실패한 테스트:", fail_cases)
 
+user_mode()
